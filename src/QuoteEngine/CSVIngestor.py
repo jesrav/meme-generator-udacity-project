@@ -2,8 +2,8 @@ from typing import List
 
 from pandas import read_csv
 
-from src.QuoteEngine.IngestorInterface import IngestorInterface
-from src.QuoteEngine.QuoteModel import QuoteModel
+from .IngestorInterface import IngestorInterface
+from .QuoteModel import QuoteModel
 
 
 class CSVIngestor(IngestorInterface):
