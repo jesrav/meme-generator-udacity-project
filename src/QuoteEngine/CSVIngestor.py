@@ -12,7 +12,7 @@ class CSVIngestor(IngestorInterface):
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
         if not cls.can_ingest(path):
-            raise Exception('cannot ingest exception')
+            raise Exception('Cannot ingest exception')
 
         quotes = []
         df = read_csv(path, header=0)
