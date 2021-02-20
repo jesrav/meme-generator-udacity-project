@@ -2,39 +2,32 @@ import os
 import random
 from pathlib import Path
 
-# from QuoteEngine import Ingestor
-# Ingestor.parse(Path("src/_data/SimpleLines/SimpleLines.txt"))
-# Ingestor.parse(Path("src/_data/SimpleLines/SimpleLines.pdf"))
-# Ingestor.parse(Path("src/_data/SimpleLines/SimpleLines.docx"))
-# Ingestor.parse(Path("src/_data/SimpleLines/SimpleLines.csv"))
+from QuoteEngine import Ingestor
+from MemeEngine import MemeEngine
+from QuoteEngine.QuoteModel import QuoteModel
 
-# @TODO Import your Ingestor and MemeEngine classes
+DOG_IMAGE_DIRECTORY = Path("src/_data/photos/dog")
+TMP_IMAGE_DIRECTORY = Path("src/_data/tmp")
 
 
-def generate_meme(path=None, body=None, author=None):
+def generate_meme(path: Path = None, body: str = None, author: str = None):
     """ Generate a meme given an path and a quote """
-    img = None
-    quote = None
 
     if path is None:
-        images = "./_data/photos/dog/"
-        imgs = []
-        for root, dirs, files in os.walk(images):
-            imgs = [os.path.join(root, name) for name in files]
-
+        imgs = list(DOG_IMAGE_DIRECTORY.glob("*.jpg"))
         img = random.choice(imgs)
     else:
-        img = path[0]
+        img = path
 
     if body is None:
-        quote_files = [
-            "./_data/DogQuotes/DogQuotesTXT.txt",
-            "./_data/DogQuotes/DogQuotesDOCX.docx",
-            "./_data/DogQuotes/DogQuotesPDF.pdf",
-            "./_data/DogQuotes/DogQuotesCSV.csv",
+        quote_file_paths = [
+            Path("src/_data/DogQuotes/DogQuotesTXT.txt"),
+            Path("src/_data/DogQuotes/DogQuotesDOCX.docx"),
+            Path("src/_data/DogQuotes/DogQuotesPDF.pdf"),
+            Path("src/_data/DogQuotes/DogQuotesCSV.csv"),
         ]
         quotes = []
-        for f in quote_files:
+        for f in quote_file_paths:
             quotes.extend(Ingestor.parse(f))
 
         quote = random.choice(quotes)
@@ -43,8 +36,8 @@ def generate_meme(path=None, body=None, author=None):
             raise Exception("Author Required if Body is Used")
         quote = QuoteModel(body, author)
 
-    meme = MemeEngine("./tmp")
-    path = meme.make_meme(img, quote.body, quote.author)
+    meme = MemeEngine(TMP_IMAGE_DIRECTORY)
+    path = meme.make_meme(img, quote)
     return path
 
 
