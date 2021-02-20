@@ -1,8 +1,12 @@
 import os
 import random
+from pathlib import Path
 
-from QuoteEngine import TXTIngestor
-TXTIngestor.parse("src/_data/SimpleLines/SimpleLines.txt")
+# from QuoteEngine import Ingestor
+# Ingestor.parse(Path("src/_data/SimpleLines/SimpleLines.txt"))
+# Ingestor.parse(Path("src/_data/SimpleLines/SimpleLines.pdf"))
+# Ingestor.parse(Path("src/_data/SimpleLines/SimpleLines.docx"))
+# Ingestor.parse(Path("src/_data/SimpleLines/SimpleLines.csv"))
 
 # @TODO Import your Ingestor and MemeEngine classes
 
@@ -23,10 +27,12 @@ def generate_meme(path=None, body=None, author=None):
         img = path[0]
 
     if body is None:
-        quote_files = ['./_data/DogQuotes/DogQuotesTXT.txt',
-                       './_data/DogQuotes/DogQuotesDOCX.docx',
-                       './_data/DogQuotes/DogQuotesPDF.pdf',
-                       './_data/DogQuotes/DogQuotesCSV.csv']
+        quote_files = [
+            "./_data/DogQuotes/DogQuotesTXT.txt",
+            "./_data/DogQuotes/DogQuotesDOCX.docx",
+            "./_data/DogQuotes/DogQuotesPDF.pdf",
+            "./_data/DogQuotes/DogQuotesCSV.csv",
+        ]
         quotes = []
         for f in quote_files:
             quotes.extend(Ingestor.parse(f))
@@ -34,10 +40,10 @@ def generate_meme(path=None, body=None, author=None):
         quote = random.choice(quotes)
     else:
         if author is None:
-            raise Exception('Author Required if Body is Used')
+            raise Exception("Author Required if Body is Used")
         quote = QuoteModel(body, author)
 
-    meme = MemeEngine('./tmp')
+    meme = MemeEngine("./tmp")
     path = meme.make_meme(img, quote.body, quote.author)
     return path
 
