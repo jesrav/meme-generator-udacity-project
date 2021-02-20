@@ -1,22 +1,20 @@
 from pathlib import Path
 from typing import List
-import subprocess
-import tempfile
 
 from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
 
 
-class PDFIngestor(IngestorInterface):
-    """Class to ingest quotes from PDF's"""
+class TextIngestor(IngestorInterface):
+    """Class to ingest quotes from TXT-files"""
 
-    allowed_extensions = [".pdf"]
+    allowed_extensions = [".txt"]
 
     @classmethod
     def parse(cls, path: Path) -> List[QuoteModel]:
-        """Parse PDF-file with quotes
+        """Parse text files with quotes
 
-        :param path: Path to PDF file
+        :param path: Path to text file
         :return: List of quotes
         """
         if not cls.file_exists(path):
@@ -24,16 +22,7 @@ class PDFIngestor(IngestorInterface):
         if not cls.can_ingest(path):
             raise Exception("Cannot Ingest Exception")
 
-        temp = tempfile.NamedTemporaryFile(suffix=".txt")
-        p = subprocess.Popen(
-            ["pdftotext", "-simple", path, temp.name], stdout=subprocess.PIPE
-        )
-        _, err = p.communicate()
-        if err:
-            raise OSError("Error in call to pdftotext")
-
-        with open(temp.name, "r") as file:
-
+        with open(path, "r") as file:
             quotes = []
             for line in file.readlines():
                 line = line.strip("\n\r").strip()
