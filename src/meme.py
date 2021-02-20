@@ -1,6 +1,9 @@
 import os
 import random
 
+from QuoteEngine import TXTIngestor
+TXTIngestor.parse("src/_data/SimpleLines/SimpleLines.txt")
+
 # @TODO Import your Ingestor and MemeEngine classes
 
 
