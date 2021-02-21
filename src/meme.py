@@ -48,9 +48,9 @@ def generate_meme(
 
 
 @click.command()
-@click.option("--path", type=click.Path(exists=True))
-@click.option("--body", type=str)
-@click.option("--author", type=str)
+@click.option("--path", type=click.Path(exists=True), help="Image for meme")
+@click.option("--body", type=str, help="Body of meme quote")
+@click.option("--author", type=str, help="Author of meme quote")
 def main(path, body, author):
     """Command line interface for generating a meme"""
     if path:
