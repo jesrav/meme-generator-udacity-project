@@ -127,3 +127,4 @@ dmypy.json
 
 # Temp folder
 src/_data/tmp/*jpg
+src/static/*jpg
