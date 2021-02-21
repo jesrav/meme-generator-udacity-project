@@ -6,6 +6,8 @@ from PIL import Image, ImageDraw, ImageFont
 from QuoteEngine.QuoteModel import QuoteModel
 
 
+FONT_PATH = Path("./fonts/Alviena-Regular.ttf")
+
 class MemeEngine:
     """Class for generating memes"""
 
@@ -72,7 +74,7 @@ class MemeEngine:
         image_width = image.size[0]
         font_size = int(image_width/5)
         draw = ImageDraw.Draw(image)
-        font = ImageFont.truetype("src/fonts/Alviena-Regular.ttf", font_size)
+        font = ImageFont.truetype(str(FONT_PATH), font_size)
         draw.text((10, 30), quote.body, fill='white', font=font)
         draw.text((21, 30 + font_size), "- " + quote.author, fill='white', font=font)
         return image

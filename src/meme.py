@@ -7,8 +7,8 @@ from QuoteEngine import Ingestor
 from MemeEngine import MemeEngine
 from QuoteEngine.QuoteModel import QuoteModel
 
-DOG_IMAGE_DIRECTORY = Path("src/_data/photos/dog")
-TMP_IMAGE_DIRECTORY = Path("src/_data/tmp")
+DOG_IMAGE_DIRECTORY = Path("./_data/photos/dog")
+TMP_IMAGE_DIRECTORY = Path("./_data/tmp")
 
 
 def generate_meme(path: Path = None, body: str = None, author: str = None):
@@ -22,10 +22,10 @@ def generate_meme(path: Path = None, body: str = None, author: str = None):
 
     if body is None:
         quote_file_paths = [
-            Path("src/_data/DogQuotes/DogQuotesTXT.txt"),
-            Path("src/_data/DogQuotes/DogQuotesDOCX.docx"),
-            Path("src/_data/DogQuotes/DogQuotesPDF.pdf"),
-            Path("src/_data/DogQuotes/DogQuotesCSV.csv"),
+            Path("./_data/DogQuotes/DogQuotesTXT.txt"),
+            Path("./_data/DogQuotes/DogQuotesDOCX.docx"),
+            Path("./_data/DogQuotes/DogQuotesPDF.pdf"),
+            Path("./_data/DogQuotes/DogQuotesCSV.csv"),
         ]
         quotes = []
         for f in quote_file_paths:
@@ -47,7 +47,8 @@ def generate_meme(path: Path = None, body: str = None, author: str = None):
 @click.option("--body", type=str)
 @click.option("--author", type=str)
 def main(path, body, author):
-    path = Path(path)
+    if path:
+        path = Path(path)
     out_path = generate_meme(path, body, author)
     print(out_path)
 
