@@ -43,10 +43,11 @@ def generate_meme(path: Path = None, body: str = None, author: str = None):
 
 
 @click.command()
-@click.option("--path", type=str)
+@click.option("--path", type=click.Path(exists=True))
 @click.option("--body", type=str)
 @click.option("--author", type=str)
 def main(path, body, author):
+    path = Path(path)
     out_path = generate_meme(path, body, author)
     print(out_path)
 
