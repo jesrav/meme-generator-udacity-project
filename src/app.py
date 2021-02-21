@@ -1,7 +1,7 @@
 import random
 import os
 import uuid
-from typing import Union
+from typing import Union, List
 
 import requests
 from pathlib import Path
@@ -10,7 +10,6 @@ from flask import Flask, render_template, abort, request
 from QuoteEngine import Ingestor
 from MemeEngine import MemeEngine
 from QuoteEngine.QuoteModel import QuoteModel
-from meme import generate_meme
 
 
 app = Flask(__name__)
@@ -38,9 +37,6 @@ def setup():
     return quotes, images
 
 
-quotes, images = setup()
-
-
 def download_image_from_url(url: str) -> Path:
     response = requests.get(url)
     out_path = Path("./static") / Path(str(uuid.uuid4()) + ".jpg")
@@ -49,30 +45,50 @@ def download_image_from_url(url: str) -> Path:
     return out_path
 
 
-def generate_image(
+def generate_meme(
+    default_images: List[Path],
+    default_quotes: List[QuoteModel],
     image_url: Union[str, None] = None,
     author: Union[str, None] = None,
     body: Union[str, None] = None,
 ) -> Path:
+    """Generate meme
+
+    If No image url is passed, a random image is selected from default_images.
+    If No quote is passed, a random image is selected from default_quotes.
+
+    :param default_images: List of default images
+    :param default_quotes: List of default quotes
+    :param image_url: Image url
+    :param author: Author name
+    :param body: Body of quote
+    :return: Path of generated meme
+    """
     if image_url:
         image_path = download_image_from_url(image_url)
     else:
-        image_path = random.choice(images)
+        image_path = random.choice(default_images)
 
     if author and body:
         quote = QuoteModel(author=author, body=body)
     else:
-        quote = random.choice(quotes)
+        quote = random.choice(default_quotes)
     path = meme.make_meme(image_path, quote)
     if image_url:
         os.remove(image_path)
     return path
 
 
+quotes, images = setup()
+
+
 @app.route("/")
 def meme_rand():
     """ Generate a random meme """
-    path = generate_image()
+    path = generate_meme(
+        default_images=images,
+        default_quotes=quotes,
+    )
     return render_template("meme.html", path=path)
 
 
@@ -90,7 +106,9 @@ def meme_post():
     body = request.form.get("body")
     author = request.form.get("author")
 
-    path = generate_image(
+    path = generate_meme(
+        default_images=images,
+        default_quotes=quotes,
         image_url=image_url,
         author=author,
         body=body,
