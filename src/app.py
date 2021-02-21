@@ -5,7 +5,7 @@ from typing import Union, List
 
 import requests
 from pathlib import Path
-from flask import Flask, render_template, abort, request
+from flask import Flask, render_template, request
 
 from QuoteEngine import Ingestor
 from MemeEngine import MemeEngine
