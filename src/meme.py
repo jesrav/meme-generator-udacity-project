@@ -49,9 +49,9 @@ def generate_meme(path: Path = None, body: str = None, author: str = None):
 def main(path, body, author):
     if path:
         path = Path(path)
-    out_path = generate_meme(path, body, author)
-    print(out_path)
+    meme_path = generate_meme(path, body, author)
+    print(meme_path)
 
 
 if __name__ == "__main__":
-    out_path = main()
+    main()
