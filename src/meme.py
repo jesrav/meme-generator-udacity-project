@@ -40,7 +40,7 @@ def generate_meme(
     else:
         if author is None:
             raise Exception("Author Required if Body is Used")
-        quote = QuoteModel(body, author)
+        quote = QuoteModel(author=author, body=body)
 
     meme = MemeEngine(TMP_IMAGE_DIRECTORY)
     out_path = meme.make_meme(image, quote)
@@ -55,7 +55,11 @@ def main(path, body, author):
     """Command line interface for generating a meme"""
     if path:
         path = Path(path)
-    meme_path = generate_meme(path, body, author)
+    meme_path = generate_meme(
+        path=path,
+        author=author,
+        body=body,
+    )
     print(meme_path)
 
 
