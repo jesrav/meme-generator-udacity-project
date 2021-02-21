@@ -1,5 +1,6 @@
 import random
 from pathlib import Path
+from typing import Union
 
 import click
 
@@ -11,14 +12,18 @@ DOG_IMAGE_DIRECTORY = Path("./_data/photos/dog")
 TMP_IMAGE_DIRECTORY = Path("./_data/tmp")
 
 
-def generate_meme(path: Path = None, body: str = None, author: str = None):
+def generate_meme(
+        path: Union[Path, None] = None,
+        body: Union[str, None] = None,
+        author: Union[str, None] = None
+) -> Path:
     """ Generate a meme given an path and a quote """
 
     if path is None:
-        imgs = list(DOG_IMAGE_DIRECTORY.glob("*.jpg"))
-        img = random.choice(imgs)
+        images = list(DOG_IMAGE_DIRECTORY.glob("*.jpg"))
+        image = random.choice(images)
     else:
-        img = path
+        image = path
 
     if body is None:
         quote_file_paths = [
@@ -38,7 +43,7 @@ def generate_meme(path: Path = None, body: str = None, author: str = None):
         quote = QuoteModel(body, author)
 
     meme = MemeEngine(TMP_IMAGE_DIRECTORY)
-    out_path = meme.make_meme(img, quote)
+    out_path = meme.make_meme(image, quote)
     return out_path
 
 

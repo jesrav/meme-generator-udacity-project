@@ -8,6 +8,7 @@ from QuoteEngine.QuoteModel import QuoteModel
 
 FONT_PATH = Path("./fonts/Alviena-Regular.ttf")
 
+
 class MemeEngine:
     """Class for generating memes"""
 
@@ -72,7 +73,7 @@ class MemeEngine:
         :return: Pillow image
         """
         image_width = image.size[0]
-        font_size = int(image_width/5)
+        font_size = int(image_width/12)
         draw = ImageDraw.Draw(image)
         font = ImageFont.truetype(str(FONT_PATH), font_size)
         draw.text((10, 30), quote.body, fill='white', font=font)
