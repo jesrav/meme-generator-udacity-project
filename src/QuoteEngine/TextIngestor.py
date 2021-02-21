@@ -22,9 +22,9 @@ class TextIngestor(IngestorInterface):
         if not cls.can_ingest(path):
             raise Exception("Cannot Ingest Exception")
 
-        with open(path, "r") as file:
+        with open(path, "r", encoding='utf-8-sig') as file:
             quotes = []
-            for line in file.readlines():
+            for line in file:
                 line = line.strip("\n\r").strip()
                 if len(line) > 0:
                     body, author = line.split(" - ")
