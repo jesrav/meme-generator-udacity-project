@@ -38,6 +38,8 @@ def setup():
 
 
 def download_image_from_url(url: str) -> Path:
+    """Download image from url"""
+
     response = requests.get(url)
     out_path = Path("./static") / Path(str(uuid.uuid4()) + ".jpg")
     with open(out_path, "wb") as file:
