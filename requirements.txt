@@ -3,3 +3,4 @@ python-docx
 Pillow
 click
 flask
+requests
