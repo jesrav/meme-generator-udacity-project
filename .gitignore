@@ -124,3 +124,6 @@ dmypy.json
 
 # Pycharm
 .idea
+
+# Temp folder
+src/_data/tmp/*jpg

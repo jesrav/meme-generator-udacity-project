@@ -1,6 +1,7 @@
-import os
 import random
 from pathlib import Path
+
+import click
 
 from QuoteEngine import Ingestor
 from MemeEngine import MemeEngine
@@ -37,14 +38,18 @@ def generate_meme(path: Path = None, body: str = None, author: str = None):
         quote = QuoteModel(body, author)
 
     meme = MemeEngine(TMP_IMAGE_DIRECTORY)
-    path = meme.make_meme(img, quote)
-    return path
+    out_path = meme.make_meme(img, quote)
+    return out_path
+
+
+@click.command()
+@click.option("--path", type=str)
+@click.option("--body", type=str)
+@click.option("--author", type=str)
+def main(path, body, author):
+    out_path = generate_meme(path, body, author)
+    print(out_path)
 
 
 if __name__ == "__main__":
-    # @TODO Use ArgumentParser to parse the following CLI arguments
-    # path - path to an image file
-    # body - quote body to add to the image
-    # author - quote author to add to the image
-    args = None
-    print(generate_meme(args.path, args.body, args.author))
+    out_path = main()
