@@ -13,9 +13,9 @@ TMP_IMAGE_DIRECTORY = Path("./_data/tmp")
 
 
 def generate_meme(
-        path: Union[Path, None] = None,
-        body: Union[str, None] = None,
-        author: Union[str, None] = None
+    path: Union[Path, None] = None,
+    body: Union[str, None] = None,
+    author: Union[str, None] = None,
 ) -> Path:
     """ Generate a meme given an path and a quote """
 

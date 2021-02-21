@@ -50,9 +50,9 @@ def download_image_from_url(url: str) -> Path:
 
 
 def generate_image(
-        image_url: Union[str, None] = None,
-        author: Union[str, None] = None,
-        body: Union[str, None] = None
+    image_url: Union[str, None] = None,
+    author: Union[str, None] = None,
+    body: Union[str, None] = None,
 ) -> Path:
     if image_url:
         image_path = download_image_from_url(image_url)

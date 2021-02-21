@@ -12,7 +12,7 @@ FONT_PATH = Path("./fonts/Alviena-Regular.ttf")
 class MemeEngine:
     """Class for generating memes"""
 
-    allowed_extensions = ['.jpg', '.png']
+    allowed_extensions = [".jpg", ".png"]
 
     def __init__(self, output_dir: Path):
         self.output_dir = output_dir
@@ -73,18 +73,15 @@ class MemeEngine:
         :return: Pillow image
         """
         image_width = image.size[0]
-        font_size = int(image_width/12)
+        font_size = int(image_width / 12)
         draw = ImageDraw.Draw(image)
         font = ImageFont.truetype(str(FONT_PATH), font_size)
-        draw.text((10, 30), quote.body, fill='white', font=font)
-        draw.text((21, 30 + font_size), "- " + quote.author, fill='white', font=font)
+        draw.text((10, 30), quote.body, fill="white", font=font)
+        draw.text((21, 30 + font_size), "- " + quote.author, fill="white", font=font)
         return image
 
     def make_meme(
-            self,
-            image_path: Path,
-            quote: QuoteModel,
-            max_width: int = 500
+        self, image_path: Path, quote: QuoteModel, max_width: int = 500
     ) -> Path:
         """Create meme
 
