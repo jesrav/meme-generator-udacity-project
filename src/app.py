@@ -56,8 +56,8 @@ def generate_meme(
 ) -> Path:
     """Generate meme
 
-    If No image url is passed, a random image is selected from default_images.
-    If No quote is passed, a random image is selected from default_quotes.
+    If either of image_url, author of body is missing,
+    a random meme is selected using the list of default images and quotes.
 
     :param default_images: List of default images
     :param default_quotes: List of default quotes
