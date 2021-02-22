@@ -66,17 +66,17 @@ def generate_meme(
     :param body: Body of quote
     :return: Path of generated meme
     """
-    if image_url:
+    if image_url and author and body:
         image_path = download_image_from_url(image_url)
+        quote = QuoteModel(author=author, body=body)
+        remove_input_image = True
     else:
         image_path = random.choice(default_images)
-
-    if author and body:
-        quote = QuoteModel(author=author, body=body)
-    else:
         quote = random.choice(default_quotes)
+        remove_input_image = False
+
     path = meme.make_meme(image_path, quote)
-    if image_url:
+    if remove_input_image:
         os.remove(image_path)
     return path
 
