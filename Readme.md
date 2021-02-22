@@ -8,25 +8,31 @@ The application can be run as a either a command line tool or web application.
 
 ## Software dependencies	
 
-- Python 3.7
+- Python 3.7: https://www.python.org/downloads/
 
-- xpdf
+- xpdf. Xpdf is an open source viewer for Portable Document Format (PDF)
+  files. It is used by the `PDFIngestor` class to parse quotes from pdf's.
 
-  - On linus:
+  - To install on Linux run:
 
     ```bash
     sudo apt-get install -y xpdf
     ```
 
-  - On mac:
+  - To install on Mac run:
 
     ```bash
     brew install xpdf
     ```
 
-    
+## Python dependencies
 
-    
+- `python-docx`: Library for working with docx-files. Used to parse quotes from docx-files in the n the `DOCXIngestor` class.
+- `pandas`: Lirary for working with tabular data. Used to parse quotes from csv-files n the CSVIngestor class.
+- `Pillow`: Library for working with images. Used to process images in the `MemeEngine` class.
+- `click`: Library for creating command line interfaces. Used to create a meme command line tool in `meme.py`.
+- `flask`: Web development framework: Used to create a meme web applikation in `app.py`.
+- `requests`: HTTP library. Used as part of the meme web applikation in `app.py`.
 
 ## Install Python dependencies
 
@@ -38,11 +44,25 @@ pip install -r requirements.txt
 
 ## Run as command line tool
 
-from the `src`folder run
+From the `src`folder run the follwing command to get help on using the meme command line tool
 
 ```bash
 python3 meme.py --help
 ```
+
+To generate a random meme from a set of default images and quotes, run:
+
+```bash
+python3 meme.py
+```
+
+To generate a random meme from a path to a image and a quote (author and body), run
+
+```bash
+python3 meme.py --path "_data/photos/dog/xander_3.jpg" --body "yo" --author "mama"
+```
+
+
 
 ## Run Flask app in developer mode
 
@@ -52,7 +72,7 @@ from the `src`folder run
 python3 app.py
 ```
 
-and go to http://127.0.0.1:5000/
+and go to http://127.0.0.1:5000/ to use the web app running on localhost.
 
 # Project structure
 
