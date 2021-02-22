@@ -3,9 +3,10 @@
 Application for generating memes.
 
 The application can be run as either a command line tool or web application.
+
 Instructions on how to run as a command line tool can be found in [here](#Run-as-command-line-tool).
 
-Instructions on how to run as a web app can be found in [here](#Run-Flask-app-in-developer-mode)
+Instructions on how to run as a web app can be found in [here](#Run-Flask-app-in-developer-mode).
 
 # Get started
 
