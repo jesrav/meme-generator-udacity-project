@@ -1,10 +1,14 @@
+import os
 from pathlib import Path
 from typing import List
 import subprocess
-import tempfile
+import uuid
 
 from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
+
+
+TEMP_FILE_DIR = Path("./_data/tmp")
 
 
 class PDFIngestor(IngestorInterface):
@@ -24,15 +28,16 @@ class PDFIngestor(IngestorInterface):
         if not cls.can_ingest(path):
             raise Exception("Cannot Ingest Exception")
 
-        temp = tempfile.NamedTemporaryFile(suffix=".txt")
+        out_txt_file_path = TEMP_FILE_DIR / Path(str(uuid.uuid4()) + ".jpg")
+
         p = subprocess.Popen(
-            ["pdftotext", "-simple", str(path), temp.name], stdout=subprocess.PIPE
+            ["pdftotext", "-simple", str(path), str(out_txt_file_path)], stdout=subprocess.PIPE
         )
         _, err = p.communicate()
         if err:
             raise OSError("Error in call to pdftotext")
 
-        with open(temp.name, "r") as file:
+        with open(out_txt_file_path, "r") as file:
 
             quotes = []
             for line in file.readlines():
@@ -41,5 +46,7 @@ class PDFIngestor(IngestorInterface):
                     body, author = line.split(" - ")
                     body = body.strip('"')
                     quotes.append(QuoteModel(author=author, body=body))
+
+        os.remove(out_txt_file_path)
 
         return quotes
