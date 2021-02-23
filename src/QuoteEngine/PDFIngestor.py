@@ -26,7 +26,7 @@ class PDFIngestor(IngestorInterface):
 
         temp = tempfile.NamedTemporaryFile(suffix=".txt")
         p = subprocess.Popen(
-            ["pdftotext", "-simple", path, temp.name], stdout=subprocess.PIPE
+            ["pdftotext", "-simple", str(path), temp.name], stdout=subprocess.PIPE
         )
         _, err = p.communicate()
         if err:
